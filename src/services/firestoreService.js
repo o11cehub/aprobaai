@@ -1,6 +1,7 @@
 import {
   doc,
   getDoc,
+  setDoc,
   updateDoc,
   collection,
   addDoc,
@@ -22,7 +23,17 @@ import { db } from '../firebase/config'
 export async function getUserCredits(uid) {
   const ref = doc(db, 'users', uid)
   const snap = await getDoc(ref)
-  if (!snap.exists()) throw new Error('Usuario no encontrado')
+
+  // Si el doc no existe (registro previo fallido o usuario antiguo), lo creamos ahora
+  if (!snap.exists()) {
+    await setDoc(ref, {
+      credits: 2,
+      creditsResetAt: serverTimestamp(),
+      totalProcessed: 0,
+      createdAt: serverTimestamp(),
+    })
+    return 2
+  }
 
   const data = snap.data()
   const now = Date.now()
