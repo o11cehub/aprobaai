@@ -1,9 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
-    @apply text-gray-900 antialiased;
+    background-color: #0D0F14;
+    color: #E5E7EB;
+    font-family: 'Inter', system-ui, sans-serif;
+    margin: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0D0F14;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1E2530;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2D3748;
+  }
+}
+
+@layer components {
+  .btn-orange {
+    @apply bg-orange text-bg font-semibold px-5 py-2.5 rounded-xl
+           hover:bg-orange-hover active:scale-95
+           transition-all duration-150
+           disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .btn-ghost {
+    @apply text-text-muted hover:text-text text-sm
+           transition-colors duration-150;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .card {
+    @apply bg-panel rounded-2xl border border-border;
+  }
+
+  .input-field {
+    @apply w-full bg-bg border border-border rounded-xl px-4 py-2.5
+           text-text text-sm placeholder-text-dim
+           focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue
+           transition-colors duration-150;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .label {
+    @apply block text-text-muted text-xs font-medium mb-1.5 uppercase tracking-wide;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .tab-btn {
+    @apply flex items-center gap-2 px-4 py-3 text-sm font-medium
+           whitespace-nowrap transition-all duration-150 border-b-2;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .tab-btn.active {
+    @apply border-orange text-orange;
+  }
+
+  .tab-btn:not(.active) {
+    @apply border-transparent text-text-muted hover:text-text;
   }
 }
