@@ -5,10 +5,29 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth'
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore'
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { auth, db } from '../firebase/config'
 
 const AuthContext = createContext(null)
+
+/**
+ * Crea (o actualiza sin pisar) el documento del usuario en Firestore.
+ * Usa merge:true para no sobreescribir si ya existe.
+ */
+async function ensureUserDoc(uid, email) {
+  const ref = doc(db, 'users', uid)
+  await setDoc(
+    ref,
+    {
+      email,
+      createdAt: serverTimestamp(),
+      credits: 2,
+      creditsResetAt: serverTimestamp(),
+      totalProcessed: 0,
+    },
+    { merge: true }          // no sobreescribe campos existentes
+  )
+}
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
@@ -16,14 +35,9 @@ export function AuthProvider({ children }) {
 
   async function register(email, password) {
     const credential = await createUserWithEmailAndPassword(auth, email, password)
-    // Crear documento de usuario con créditos iniciales
-    await setDoc(doc(db, 'users', credential.user.uid), {
-      email,
-      createdAt: serverTimestamp(),
-      credits: 2,
-      creditsResetAt: serverTimestamp(),
-      totalProcessed: 0,
-    })
+    // Espera a que el doc esté creado ANTES de resolver la promesa,
+    // así el dashboard ya lo encuentra disponible.
+    await ensureUserDoc(credential.user.uid, email)
     return credential
   }
 
