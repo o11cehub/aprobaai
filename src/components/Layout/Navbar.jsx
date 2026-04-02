@@ -36,10 +36,10 @@ export default function Navbar({ credits = null }) {
       {/* Nav links — visibles siempre */}
       <div className="flex items-center gap-1">
         <Link to="/precios"
-          className={`text-xs px-3 py-1.5 rounded-lg transition-colors font-medium ${
+          className={`text-xs px-3 py-1.5 rounded-lg transition-colors font-semibold ${
             location.pathname === '/precios'
               ? 'text-orange bg-orange/10'
-              : 'text-text-muted hover:text-text hover:bg-border'
+              : 'text-orange hover:bg-orange/10'
           }`}>
           Precios
         </Link>
