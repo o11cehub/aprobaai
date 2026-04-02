@@ -43,6 +43,14 @@ export default function Navbar({ credits = null }) {
           }`}>
           Precios
         </Link>
+        <Link to="/faq"
+          className={`text-xs px-3 py-1.5 rounded-lg transition-colors font-medium ${
+            location.pathname === '/faq'
+              ? 'text-orange bg-orange/10'
+              : 'text-text-muted hover:text-text hover:bg-border'
+          }`}>
+          FAQ
+        </Link>
       </div>
 
       {user && (

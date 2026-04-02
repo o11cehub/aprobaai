@@ -5,6 +5,7 @@ import Login from './components/Auth/Login'
 import Register from './components/Auth/Register'
 import Dashboard from './components/Dashboard/Dashboard'
 import Pricing from './components/Pricing/Pricing'
+import FAQ from './components/FAQ/FAQ'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/precios" element={<Pricing />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route
             path="/dashboard"
             element={
