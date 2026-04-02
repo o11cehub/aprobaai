@@ -4,6 +4,7 @@ import ProtectedRoute from './components/Layout/ProtectedRoute'
 import Login from './components/Auth/Login'
 import Register from './components/Auth/Register'
 import Dashboard from './components/Dashboard/Dashboard'
+import Pricing from './components/Pricing/Pricing'
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/precios" element={<Pricing />} />
           <Route
             path="/dashboard"
             element={
@@ -20,7 +22,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          {/* Redirigir raíz al dashboard (o login si no autenticado) */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>

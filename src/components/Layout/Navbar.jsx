@@ -1,9 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 
 export default function Navbar({ credits = null }) {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
 
   async function handleLogout() {
     await logout()
@@ -31,6 +32,18 @@ export default function Navbar({ credits = null }) {
           <span className="text-orange">Aproba</span><span className="text-text">AI</span>
         </span>
       </Link>
+
+      {/* Nav links — visibles siempre */}
+      <div className="flex items-center gap-1">
+        <Link to="/precios"
+          className={`text-xs px-3 py-1.5 rounded-lg transition-colors font-medium ${
+            location.pathname === '/precios'
+              ? 'text-orange bg-orange/10'
+              : 'text-text-muted hover:text-text hover:bg-border'
+          }`}>
+          Precios
+        </Link>
+      </div>
 
       {user && (
         <div className="flex items-center gap-3">
